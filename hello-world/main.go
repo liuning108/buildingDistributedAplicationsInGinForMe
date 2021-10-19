@@ -1,14 +1,28 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"encoding/xml"
+	"github.com/gin-gonic/gin"
+)
+
+func IndexHandler(c *gin.Context) {
+	name := c.Params.ByName("name")
+	c.XML(200, Person{
+		FirstName: name,
+		LastName:  "Labouardy",
+	})
+
+}
+
+type Person struct {
+	XMLName   xml.Name `xml:"person"`
+	FirstName string   `xml:"firstName,attr"`
+	LastName  string   `xml:"lastName,attr"`
+}
 
 func main() {
 	router := gin.Default()
-	router.GET("/", func(context *gin.Context) {
-		context.JSON(200, gin.H{
-			"message": "Hello World",
-		})
-	})
+	router.GET("/:name", IndexHandler)
 	err := router.Run(":5000")
 
 	if err != nil {

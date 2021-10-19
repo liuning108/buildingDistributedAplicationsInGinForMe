@@ -1,4 +1,4 @@
-module building_distributed_applications__in_gin
+module github.com/liuning108/buildingDistributedAplicationsInGinForMe
 
 go 1.17
 
